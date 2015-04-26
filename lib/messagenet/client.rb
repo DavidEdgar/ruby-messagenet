@@ -20,6 +20,24 @@ module MessageNet
       yield(self) if block_given?
     end
 
+    # @return [String]
+    def user_agent
+      @user_agent ||= "MessageNet-csharp/#{MessageNet::Version}"
+    end
+
+    # @return [Hash]
+    def credentials
+      {
+        username: username,
+        password: password
+      }
+    end
+
+    # @return [Boolean]
+    def credentials?
+      credentials.values.all?
+    end
+
     def send_message message, to
       recipient = {"Number"=>to}
       message = {"message"=>message, 'recipients'=>[recipient]}
